@@ -10,6 +10,7 @@ import {
 export const Archive: Block = {
   slug: 'archive',
   interfaceName: 'ArchiveBlock',
+  imageURL: '/test.png',
   fields: [
     {
       name: 'introContent',
