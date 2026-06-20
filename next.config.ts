@@ -9,9 +9,10 @@ import { redirects } from './redirects'
 
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
+  : process.env.__NEXT_PRIVATE_ORIGIN || 'http://192.168.1.16:3000'
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['192.168.1.16'],
   // Temporarily required on Windows until Next.js fixes Turbopack Sass resolution.
   // See: https://github.com/vercel/next.js/issues/86431
   sassOptions: {

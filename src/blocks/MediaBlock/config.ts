@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
   interfaceName: 'MediaBlock',
+  imageURL: '/Media.png',
   fields: [
     {
       name: 'media',
@@ -10,5 +11,6 @@ export const MediaBlock: Block = {
       relationTo: 'media',
       required: true,
     },
+    
   ],
 }

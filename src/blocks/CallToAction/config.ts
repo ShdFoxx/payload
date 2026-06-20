@@ -35,6 +35,7 @@ export const CallToAction: Block = {
         maxRows: 2,
       },
     }),
+    
   ],
   labels: {
     plural: 'Calls to Action',

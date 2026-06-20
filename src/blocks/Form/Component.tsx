@@ -21,13 +21,15 @@ export type FormBlockType = {
 
 export const FormBlock: React.FC<
   {
+
     id?: string
   } & FormBlockType
 > = (props) => {
   const {
+    blockName,
     enableIntro,
     form: formFromProps,
-    form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
+    form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel,sectionId } = {},
     introContent,
   } = props
 
@@ -114,7 +116,7 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem]">
+    <div id={blockName} className="container lg:max-w-[48rem]">
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}

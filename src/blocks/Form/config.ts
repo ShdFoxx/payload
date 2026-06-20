@@ -10,6 +10,7 @@ import {
 export const FormBlock: Block = {
   slug: 'formBlock',
   interfaceName: 'FormBlock',
+  imageURL: '/Form.png',
   fields: [
     {
       name: 'form',
@@ -40,6 +41,7 @@ export const FormBlock: Block = {
       }),
       label: 'Intro Content',
     },
+   
   ],
   graphQL: {
     singularName: 'FormBlock',

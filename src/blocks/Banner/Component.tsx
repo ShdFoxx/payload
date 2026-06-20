@@ -8,9 +8,10 @@ type Props = {
   className?: string
 } & BannerBlockProps
 
-export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
+export const BannerBlock: React.FC<Props> = ({ className, content, style, blockName }) => {
+  const id = blockName || '';
   return (
-    <div className={cn('mx-auto my-8 w-full', className)}>
+    <div id={id} className={cn('mx-auto my-8 w-full', className)}>
       <div
         className={cn('border py-3 px-6 flex items-center rounded', {
           'border-border bg-card': style === 'info',

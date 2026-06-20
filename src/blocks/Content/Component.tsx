@@ -15,9 +15,10 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
     oneThird: '4',
     twoThirds: '8',
   }
-
+  const id = props.blockName || '';
+ 
   return (
-    <div className="container my-16">
+    <div id={id} className="container my-16">
       <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
         {columns &&
           columns.length > 0 &&

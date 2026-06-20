@@ -15,11 +15,36 @@ import { SiteSettings } from './Global/siteSettings'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
+import { en } from '@payloadcms/translations/languages/en'
+import { fr } from '@payloadcms/translations/languages/fr'
+
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  email: nodemailerAdapter({
+    defaultFromAddress: 'shdfoxxdev@gmail.com',
+    defaultFromName: 'ShdFoxxDev',
+    transportOptions: {
+      service: 'gmail',
+      auth: {
+        user: 'shdfoxxdev@gmail.com',
+        pass: process.env.GMAIL_APP_PASSWORD, // Mot de passe d'application
+      },
+    },
+    // defaultFromAddress: 'example@example.com',
+    // defaultFromName: 'Payload',
+    // transportOptions: {
+    //   host: process.env.SMTP_HOST,
+    //   port: process.env.SMTP_PORT,
+    //   auth: {
+    //     user: process.env.SMTP_USER,
+    //     pass: process.env.SMTP_PASS,
+    //   },
+    // },
+  }),
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -69,6 +94,12 @@ export default buildConfig({
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
+  i18n: {
+    supportedLanguages: {
+      en,fr
+    },
+    
+  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
