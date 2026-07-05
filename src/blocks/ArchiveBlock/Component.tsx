@@ -12,7 +12,7 @@ export const ArchiveBlock: React.FC<
     id?: string
   }
 > = async (props) => {
-  const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs, blockName } = props
+  const { id, categories, introContent, relationTo ,limit: limitFromProps, populateBy, selectedDocs, blockName } = props
 
   const limit = limitFromProps || 3
 
@@ -27,7 +27,7 @@ export const ArchiveBlock: React.FC<
     })
 
     const fetchedPosts = await payload.find({
-      collection: 'posts',
+      collection: relationTo ? relationTo: 'posts',
       depth: 1,
       limit,
       ...(flattenedCategories && flattenedCategories.length > 0
@@ -60,7 +60,7 @@ export const ArchiveBlock: React.FC<
           <RichText className="ms-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
       )}
-      <CollectionArchive posts={posts} />
+      <CollectionArchive relationTo={relationTo? relationTo : ''} posts={posts} />
     </div>
   )
 }

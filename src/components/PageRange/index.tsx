@@ -9,12 +9,21 @@ const defaultCollectionLabels = {
   posts: {
     plural: 'Posts',
     singular: 'Post',
+  },galleries: {
+    plural: 'Galleries',
+    singular: 'Gallerie',
+  },
+}
+const secondCollectionLabels = {
+  galleries: {
+    plural: 'Galleries',
+    singular: 'Gallerie',
   },
 }
 
 export const PageRange: React.FC<{
   className?: string
-  collection?: keyof typeof defaultCollectionLabels
+  collection?: keyof typeof defaultCollectionLabels 
   collectionLabels?: {
     plural?: string
     singular?: string
@@ -40,7 +49,7 @@ export const PageRange: React.FC<{
 
   const { plural, singular } =
     collectionLabelsFromProps ||
-    (collection ? defaultCollectionLabels[collection] : undefined) ||
+    (collection ? defaultCollectionLabels[collection]  : undefined) ||
     defaultLabels ||
     {}
 
