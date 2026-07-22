@@ -205,7 +205,23 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | {
+        title?: string | null;
+        description?: string | null;
+        images: (number | Media)[];
+        columns?: ('2' | '3' | '4') | null;
+        aspectRatio?: ('square' | 'landscape' | 'portrait') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'galleryGrid';
+      }
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -641,7 +657,23 @@ export interface Gallery {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | {
+        title?: string | null;
+        description?: string | null;
+        images: (number | Media)[];
+        columns?: ('2' | '3' | '4') | null;
+        aspectRatio?: ('square' | 'landscape' | 'portrait') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'galleryGrid';
+      }
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -1172,6 +1204,17 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        galleryGrid?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              images?: T;
+              columns?: T;
+              aspectRatio?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T
@@ -1475,6 +1518,17 @@ export interface GalleriesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        galleryGrid?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              images?: T;
+              columns?: T;
+              aspectRatio?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   meta?:
     | T

@@ -32,7 +32,7 @@ export default async function Page() {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+          <h1>Galleries</h1>
         </div>
       </div>
 
@@ -45,11 +45,11 @@ export default async function Page() {
         />
       </div>
 
-      <CollectionArchive posts={galleries.docs} />
+      <CollectionArchive relationTo={'galleries'} posts={galleries.docs} />
 
       <div className="container">
         {galleries.totalPages > 1 && galleries.page && (
-          <Pagination page={galleries.page} totalPages={galleries.totalPages} />
+          <Pagination collection='galleries' page={galleries.page} totalPages={galleries.totalPages} />
         )}
       </div>
     </div>

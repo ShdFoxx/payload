@@ -16,6 +16,7 @@ import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
+import { GalleryGrid } from '../../blocks/GalleryGrid/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
@@ -85,7 +86,7 @@ export const Galleries: CollectionConfig<'galleries'> = {
               {
                 name: 'layout',
                 type: 'blocks',
-                blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+                blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock,GalleryGrid],
                 required: true,
                 admin: {
                   initCollapsed: true,

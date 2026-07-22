@@ -16,7 +16,7 @@ export const ArchiveBlock: React.FC<
 
   const limit = limitFromProps || 3
 
-  let posts: Post[] = []
+  let posts: any[]  = []
 
   if (populateBy === 'collection') {
     const payload = await getPayload({ config: configPromise })
