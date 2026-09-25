@@ -26,7 +26,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'galleries',
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,
@@ -51,7 +51,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive relationTo='galleries' posts={posts.docs} />
 
       <div className="container">
         {posts?.page && posts?.totalPages > 1 && (
