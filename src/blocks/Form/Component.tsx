@@ -21,7 +21,6 @@ export type FormBlockType = {
 
 export const FormBlock: React.FC<
   {
-
     id?: string
   } & FormBlockType
 > = (props) => {
@@ -29,7 +28,7 @@ export const FormBlock: React.FC<
     blockName,
     enableIntro,
     form: formFromProps,
-    form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel,sectionId } = {},
+    form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
     introContent,
   } = props
 
