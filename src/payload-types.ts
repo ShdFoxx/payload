@@ -1884,6 +1884,92 @@ export interface Footer {
 export interface SiteSetting {
   id: number;
   logo: number | Media;
+  allowThemeSwitch?: boolean | null;
+  defaultTheme?: ('light' | 'dark') | null;
+  lightTheme?: {
+    background?: string | null;
+    foreground?: string | null;
+    card?: string | null;
+    cardForeground?: string | null;
+    primary?: string | null;
+    primaryForeground?: string | null;
+    secondary?: string | null;
+    secondaryForeground?: string | null;
+    muted?: string | null;
+    mutedForeground?: string | null;
+    accent?: string | null;
+    accentForeground?: string | null;
+    border?: string | null;
+  };
+  lightThemePalette?: ('neutral' | 'ocean' | 'forest' | 'warm' | 'elegant') | null;
+  /**
+   * Palettes personnalisées enregistrées pour le thème clair.
+   */
+  lightPersonalPalettes?:
+    | {
+        key?: string | null;
+        name: string;
+        colors?: {
+          background?: string | null;
+          foreground?: string | null;
+          card?: string | null;
+          cardForeground?: string | null;
+          primary?: string | null;
+          primaryForeground?: string | null;
+          secondary?: string | null;
+          secondaryForeground?: string | null;
+          muted?: string | null;
+          mutedForeground?: string | null;
+          accent?: string | null;
+          accentForeground?: string | null;
+          border?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  lightActivePersonalPalette?: string | null;
+  darkTheme?: {
+    background?: string | null;
+    foreground?: string | null;
+    card?: string | null;
+    cardForeground?: string | null;
+    primary?: string | null;
+    primaryForeground?: string | null;
+    secondary?: string | null;
+    secondaryForeground?: string | null;
+    muted?: string | null;
+    mutedForeground?: string | null;
+    accent?: string | null;
+    accentForeground?: string | null;
+    border?: string | null;
+  };
+  darkThemePalette?: ('neutral' | 'ocean' | 'forest' | 'warm' | 'elegant') | null;
+  /**
+   * Palettes personnalisées enregistrées pour le thème sombre.
+   */
+  darkPersonalPalettes?:
+    | {
+        key?: string | null;
+        name: string;
+        colors?: {
+          background?: string | null;
+          foreground?: string | null;
+          card?: string | null;
+          cardForeground?: string | null;
+          primary?: string | null;
+          primaryForeground?: string | null;
+          secondary?: string | null;
+          secondaryForeground?: string | null;
+          muted?: string | null;
+          mutedForeground?: string | null;
+          accent?: string | null;
+          accentForeground?: string | null;
+          border?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  darkActivePersonalPalette?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1939,6 +2025,94 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
+  allowThemeSwitch?: T;
+  defaultTheme?: T;
+  lightTheme?:
+    | T
+    | {
+        background?: T;
+        foreground?: T;
+        card?: T;
+        cardForeground?: T;
+        primary?: T;
+        primaryForeground?: T;
+        secondary?: T;
+        secondaryForeground?: T;
+        muted?: T;
+        mutedForeground?: T;
+        accent?: T;
+        accentForeground?: T;
+        border?: T;
+      };
+  lightThemePalette?: T;
+  lightPersonalPalettes?:
+    | T
+    | {
+        key?: T;
+        name?: T;
+        colors?:
+          | T
+          | {
+              background?: T;
+              foreground?: T;
+              card?: T;
+              cardForeground?: T;
+              primary?: T;
+              primaryForeground?: T;
+              secondary?: T;
+              secondaryForeground?: T;
+              muted?: T;
+              mutedForeground?: T;
+              accent?: T;
+              accentForeground?: T;
+              border?: T;
+            };
+        id?: T;
+      };
+  lightActivePersonalPalette?: T;
+  darkTheme?:
+    | T
+    | {
+        background?: T;
+        foreground?: T;
+        card?: T;
+        cardForeground?: T;
+        primary?: T;
+        primaryForeground?: T;
+        secondary?: T;
+        secondaryForeground?: T;
+        muted?: T;
+        mutedForeground?: T;
+        accent?: T;
+        accentForeground?: T;
+        border?: T;
+      };
+  darkThemePalette?: T;
+  darkPersonalPalettes?:
+    | T
+    | {
+        key?: T;
+        name?: T;
+        colors?:
+          | T
+          | {
+              background?: T;
+              foreground?: T;
+              card?: T;
+              cardForeground?: T;
+              primary?: T;
+              primaryForeground?: T;
+              secondary?: T;
+              secondaryForeground?: T;
+              muted?: T;
+              mutedForeground?: T;
+              accent?: T;
+              accentForeground?: T;
+              border?: T;
+            };
+        id?: T;
+      };
+  darkActivePersonalPalette?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
