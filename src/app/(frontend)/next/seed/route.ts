@@ -1,3 +1,4 @@
+//src/app/frontend/next/seed/route.ts
 import { createLocalReq, getPayload } from 'payload'
 import { seed } from '@/endpoints/seed'
 import config from '@payload-config'
