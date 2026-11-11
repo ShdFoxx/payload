@@ -316,7 +316,7 @@ export const PaletteSelector = ({ field }: Props) => {
         </div>
       ) : (
         <p style={{ marginTop: '1rem' }}>
-          Vous n'avez pas encore enregistré de palette personnelle.
+          Vous n&apos;avez pas encore enregistré de palette personnelle.
         </p>
       )}
     </div>

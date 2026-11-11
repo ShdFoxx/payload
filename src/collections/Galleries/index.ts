@@ -1,27 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
-import {
-  BlocksFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
-import { Banner } from '../../blocks/Banner/config'
-import { Code } from '../../blocks/Code/config'
+
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
-import { populateAuthors } from './hooks/populateAuthors'
-import { GalleryGrid } from '../../blocks/GalleryGrid/config'
-import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
+
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { hero } from '@/heros/config'
 
@@ -81,20 +65,6 @@ export const Galleries: CollectionConfig<'galleries'> = {
           label: 'Hero',
         },
         {
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GalleryGrid],
-              required: true,
-              admin: {
-                initCollapsed: true,
-              },
-            },
-          ],
-          label: 'Content',
-        },
-        {
           label: 'Photos',
           fields: [
             {
@@ -134,11 +104,36 @@ export const Galleries: CollectionConfig<'galleries'> = {
                   type: 'textarea',
                 },
                 {
+                  name: 'alignment',
+                  label: 'Alignement du titre et de la description',
+                  type: 'select',
+                  defaultValue: 'left',
+                  options: [
+                    {
+                      label: 'Gauche',
+                      value: 'left',
+                    },
+                    {
+                      label: 'Centré',
+                      value: 'center',
+                    },
+                    {
+                      label: 'Droite',
+                      value: 'right',
+                    },
+                  ],
+                },
+                {
                   name: 'images',
                   label: 'Images de cette série',
                   type: 'relationship',
                   relationTo: 'media',
                   hasMany: true,
+                  admin: {
+                    components: {
+                      Field: '@/components/SeriesImageSelector#SeriesImageSelector',
+                    },
+                  },
                   filterOptions: ({ data }) => {
                     const galleryImages = Array.isArray(data?.images) ? data.images : []
 

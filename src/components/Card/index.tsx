@@ -4,14 +4,14 @@ import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 
-import type { Gallery, Post } from '@/payload-types'
+import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
-export type CardPostData = Pick<Post , 'slug' | 'categories' | 'meta' | 'title'>
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
 
 export const Card: React.FC<{
-  collection?:string
+  collection?: string
   alignItems?: 'center'
   className?: string
   doc?: CardPostData
@@ -19,8 +19,8 @@ export const Card: React.FC<{
   showCategories?: boolean
   title?: string
 }> = (props) => {
-  const { card, link } = useClickableCard({})
-  const { className, doc,relationTo, showCategories, title: titleFromProps } = props
+  const [cardRef, linkRef] = useClickableCard({})
+  const { className, doc, relationTo, showCategories, title: titleFromProps } = props
 
   const { slug, categories, meta, title } = doc || {}
   const { description, image: metaImage } = meta || {}
@@ -36,8 +36,8 @@ export const Card: React.FC<{
         'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
         className,
       )}
-     
-      ref={card.ref}
+
+      ref={cardRef}
     >
       <div className="relative w-full ">
         {!metaImage && <div className="">No image</div>}
@@ -69,7 +69,7 @@ export const Card: React.FC<{
         {titleToUse && (
           <div className="prose">
             <h3>
-              <Link className="not-prose" href={href} ref={link.ref}>
+              <Link className="not-prose" href={href} ref={linkRef}>
                 {titleToUse}
               </Link>
             </h3>
