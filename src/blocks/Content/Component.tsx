@@ -1,24 +1,24 @@
-import { cn } from '@/utilities/ui'
 import React from 'react'
-import RichText from '@/components/RichText'
 
 import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
+import { BlockWrapper } from '@/components/BlockWrapper'
+import { cn } from '@/utilities/ui'
+import RichText from '@/components/RichText'
 import { CMSLink } from '../../components/Link'
 
-export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
-  const { columns } = props
+const columnClasses = {
+  oneThird: 'col-span-4 md:col-span-2 lg:col-span-4',
+  half: 'col-span-4 md:col-span-2 lg:col-span-6',
+  twoThirds: 'col-span-4 md:col-span-2 lg:col-span-8',
+  full: 'col-span-4 lg:col-span-12',
+}
 
-  const colsSpanClasses = {
-    full: '12',
-    half: '6',
-    oneThird: '4',
-    twoThirds: '8',
-  }
-  const id = props.blockName || '';
- 
+export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
+  const { columns, blockSettings } = props
+
   return (
-    <div id={id} className="container my-16">
+    <BlockWrapper settings={blockSettings} id={props.blockName}>
       <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
         {columns &&
           columns.length > 0 &&
@@ -26,12 +26,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
             const { enableLink, link, richText, size } = col
 
             return (
-              <div
-                className={cn(`col-span-4 lg:col-span-${colsSpanClasses[size!]}`, {
-                  'md:col-span-2': size !== 'full',
-                })}
-                key={index}
-              >
+              <div className={cn(columnClasses[size ?? 'oneThird'])} key={index}>
                 {richText && <RichText data={richText} enableGutter={false} />}
 
                 {enableLink && <CMSLink {...link} />}
@@ -39,6 +34,6 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
             )
           })}
       </div>
-    </div>
+    </BlockWrapper>
   )
 }

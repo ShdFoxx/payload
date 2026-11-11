@@ -1,9 +1,19 @@
 import Script from 'next/script'
 import React from 'react'
 
+import type { Theme } from '../types'
+
 import { defaultTheme, themeLocalStorageKey } from '../ThemeSelector/types'
 
-export const InitTheme: React.FC = () => {
+interface InitThemeProps {
+  allowThemeSwitch?: boolean
+  defaultThemeSetting?: Theme
+}
+
+export const InitTheme: React.FC<InitThemeProps> = ({
+  allowThemeSwitch = true,
+  defaultThemeSetting = defaultTheme,
+}) => {
   return (
     // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
     <Script
@@ -13,9 +23,8 @@ export const InitTheme: React.FC = () => {
     function getImplicitPreference() {
       var mediaQuery = '(prefers-color-scheme: dark)'
       var mql = window.matchMedia(mediaQuery)
-      var hasImplicitPreference = typeof mql.matches === 'boolean'
 
-      if (hasImplicitPreference) {
+      if (typeof mql.matches === 'boolean') {
         return mql.matches ? 'dark' : 'light'
       }
 
@@ -26,17 +35,24 @@ export const InitTheme: React.FC = () => {
       return theme === 'light' || theme === 'dark'
     }
 
-    var themeToSet = '${defaultTheme}'
-    var preference = window.localStorage.getItem('${themeLocalStorageKey}')
+    var allowThemeSwitch = ${JSON.stringify(allowThemeSwitch)}
+    var defaultTheme = ${JSON.stringify(defaultThemeSetting)}
+    var themeToSet = defaultTheme
 
-    if (themeIsValid(preference)) {
-      themeToSet = preference
-    } else {
-      var implicitPreference = getImplicitPreference()
+    if (allowThemeSwitch) {
+      var preference = window.localStorage.getItem('${themeLocalStorageKey}')
 
-      if (implicitPreference) {
-        themeToSet = implicitPreference
+      if (themeIsValid(preference)) {
+        themeToSet = preference
+      } else {
+        var implicitPreference = getImplicitPreference()
+
+        if (implicitPreference) {
+          themeToSet = implicitPreference
+        }
       }
+    } else {
+      window.localStorage.removeItem('${themeLocalStorageKey}')
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)

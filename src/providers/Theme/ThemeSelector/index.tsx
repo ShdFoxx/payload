@@ -15,10 +15,12 @@ import { useTheme } from '..'
 import { themeLocalStorageKey } from './types'
 
 export const ThemeSelector: React.FC = () => {
-  const { setTheme } = useTheme()
+  const { setTheme, allowThemeSwitch } = useTheme()
+
+  if (!allowThemeSwitch) return null
   const [value, setValue] = useState('')
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
+  const onThemeChange = (themeToSet: Theme | 'auto') => {
     if (themeToSet === 'auto') {
       setTheme(null)
       setValue('auto')

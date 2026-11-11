@@ -1,7 +1,7 @@
 import type { StaticImageData } from 'next/image'
+import React from 'react'
 
 import { cn } from '@/utilities/ui'
-import React from 'react'
 import RichText from '@/components/RichText'
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
@@ -9,62 +9,80 @@ import type { MediaBlock as MediaBlockProps } from '@/payload-types'
 import { Media } from '../../components/Media'
 
 type Props = MediaBlockProps & {
-  breakout?: boolean
   captionClassName?: string
   className?: string
-  enableGutter?: boolean
   imgClassName?: string
   staticImage?: StaticImageData
   disableInnerContainer?: boolean
   blockName?: string
+  enableGutter?: boolean
+}
+
+const backgroundClasses = {
+  default: 'bg-transparent',
+  muted: 'bg-muted',
+  card: 'bg-card',
+  primary: 'bg-primary',
+  accent: 'bg-accent',
 }
 
 export const MediaBlock: React.FC<Props> = (props) => {
   const {
     captionClassName,
     className,
-    enableGutter = true,
     imgClassName,
     media,
     staticImage,
     disableInnerContainer,
-    blockName
+    blockName,
+    mediaSettings,
+    enableGutter = true,
   } = props
 
-  let caption
-  if (media && typeof media === 'object') caption = media.caption
-  const id = blockName || '';
+  const caption = media && typeof media === 'object' ? media.caption : null
+
+  const background = mediaSettings?.background ?? 'default'
+  const border = mediaSettings?.border ?? true
+
   return (
-    <div
-      id={id}
+    <section
+      id={blockName || undefined}
       className={cn(
-        '',
+        'w-full overflow-hidden rounded-2xl',
         {
           container: enableGutter,
         },
+        backgroundClasses[background] || backgroundClasses.default,
         className,
       )}
     >
-      {(media || staticImage) && (
-        <Media
-          imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
-          resource={media}
-          src={staticImage}
-        />
-      )}
-      {caption && (
-        <div
-          className={cn(
-            'mt-6',
-            {
-              container: !disableInnerContainer,
-            },
-            captionClassName,
-          )}
-        >
-          <RichText data={caption} enableGutter={false} />
-        </div>
-      )}
-    </div>
+      <div className="w-full p-6 md:p-8">
+        {(media || staticImage) && (
+          <Media
+            imgClassName={cn(
+              'block h-auto w-full rounded-[0.8rem] object-contain',
+              border && 'border border-border',
+              imgClassName,
+            )}
+            resource={media}
+            src={staticImage}
+          />
+        )}
+
+        {caption && (
+          <div
+            className={cn(
+              'mt-6',
+              {
+                container: !disableInnerContainer,
+              },
+              captionClassName,
+            )}
+          >
+            <RichText data={caption} enableGutter={false} />
+          </div>
+        )}
+      </div>
+    </section>
   )
 }

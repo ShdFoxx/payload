@@ -1,7 +1,9 @@
 import type { Block } from 'payload'
+import { blockSettings } from '@/fields/blockSettings'
 
 export const GalleryGrid: Block = {
   slug: 'galleryGrid',
+  interfaceName: 'GalleryGrid',
 
   labels: {
     singular: 'Gallery Grid',
@@ -11,6 +13,7 @@ export const GalleryGrid: Block = {
   imageURL: '/block-previews/gallery-grid.webp',
 
   fields: [
+    ...blockSettings,
     {
       name: 'title',
       label: 'Titre',

@@ -1,4 +1,5 @@
 import type { Block, Field } from 'payload'
+import { blockSettings } from '@/fields/blockSettings'
 
 import {
   FixedToolbarFeature,
@@ -61,7 +62,6 @@ const columnFields: Field[] = [
       },
     },
   }),
- 
 ]
 
 export const Content: Block = {
@@ -69,6 +69,7 @@ export const Content: Block = {
   interfaceName: 'ContentBlock',
   imageURL: '/Content.png',
   fields: [
+    ...blockSettings,
     {
       name: 'columns',
       type: 'array',

@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { blockSettings } from '@/fields/blockSettings'
 
 import {
   FixedToolbarFeature,
@@ -14,6 +15,7 @@ export const CallToAction: Block = {
   interfaceName: 'CallToActionBlock',
   imageURL: '/CTA.png',
   fields: [
+    ...blockSettings,
     {
       name: 'richText',
       type: 'richText',
@@ -35,7 +37,6 @@ export const CallToAction: Block = {
         maxRows: 2,
       },
     }),
-    
   ],
   labels: {
     plural: 'Calls to Action',

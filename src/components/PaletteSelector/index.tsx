@@ -25,7 +25,7 @@ type PersonalPalette = {
 export const PaletteSelector = ({ field }: Props) => {
   const theme = field.admin?.custom?.theme ?? 'light'
 
-  const [, dispatchFields] = useAllFormFields()
+  const [formFields, dispatchFields] = useAllFormFields()
   const { getDataByPath, addFieldRow, removeFieldRow } = useForm()
 
   const groupPath = `${theme}Theme`
@@ -37,11 +37,11 @@ export const PaletteSelector = ({ field }: Props) => {
     path: palettePath,
   })
 
-  const { value: personalPalettesValue } = useField<PersonalPalette[]>({
-    path: personalPath,
-  })
+  const personalPalettes = React.useMemo(() => {
+    const data = getDataByPath(personalPath)
 
-  const personalPalettes = Array.isArray(personalPalettesValue) ? personalPalettesValue : []
+    return Array.isArray(data) ? (data as PersonalPalette[]) : []
+  }, [formFields, personalPath, getDataByPath])
 
   const { value: activePersonalPalette, setValue: setActivePersonalPalette } = useField<string>({
     path: activePersonalPath,
@@ -114,6 +114,10 @@ export const PaletteSelector = ({ field }: Props) => {
       subFieldState,
     })
 
+    setTimeout(() => {
+      console.log('Palettes dans le formulaire :', getDataByPath(personalPath))
+    }, 100)
+
     setActivePersonalPalette(newPalette.key)
 
     Object.entries(subFieldState).forEach(([fieldPath, fieldState]) => {
@@ -174,7 +178,7 @@ export const PaletteSelector = ({ field }: Props) => {
       setActivePersonalPalette('')
     }
   }
-
+  console.log('Palettes affichées :', personalPalettes)
   return (
     <div style={{ marginBottom: '2rem' }}>
       <h3>Palettes prédéfinies</h3>

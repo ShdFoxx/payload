@@ -1,13 +1,23 @@
 import React from 'react'
 
+import type { Theme } from './Theme/types'
+
 import { HeaderThemeProvider } from './HeaderTheme'
 import { ThemeProvider } from './Theme'
 
-export const Providers: React.FC<{
+interface ProvidersProps {
   children: React.ReactNode
-}> = ({ children }) => {
+  allowThemeSwitch?: boolean
+  defaultThemeSetting?: Theme
+}
+
+export const Providers: React.FC<ProvidersProps> = ({
+  children,
+  allowThemeSwitch = true,
+  defaultThemeSetting = 'light',
+}) => {
   return (
-    <ThemeProvider>
+    <ThemeProvider allowThemeSwitch={allowThemeSwitch} defaultThemeSetting={defaultThemeSetting}>
       <HeaderThemeProvider>{children}</HeaderThemeProvider>
     </ThemeProvider>
   )

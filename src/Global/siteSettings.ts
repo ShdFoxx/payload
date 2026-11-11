@@ -1,3 +1,5 @@
+//srs/Global/siteSettings.ts
+
 import type { GlobalConfig } from 'payload'
 
 import { defaultDarkTheme, defaultLightTheme, defaultThemeSettings } from '@/theme/defaults'
@@ -140,6 +142,7 @@ export const SiteSettings: GlobalConfig = {
                 },
               ],
               admin: {
+                hidden: true,
                 description: 'Palettes personnalisées enregistrées pour le thème clair.',
               },
             },
@@ -213,6 +216,7 @@ export const SiteSettings: GlobalConfig = {
                 },
               ],
               admin: {
+                hidden: true,
                 description: 'Palettes personnalisées enregistrées pour le thème sombre.',
               },
             },

@@ -205,23 +205,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (
-    | CallToActionBlock
-    | ContentBlock
-    | MediaBlock
-    | ArchiveBlock
-    | FormBlock
-    | {
-        title?: string | null;
-        description?: string | null;
-        images: (number | Media)[];
-        columns?: ('2' | '3' | '4') | null;
-        aspectRatio?: ('square' | 'landscape' | 'portrait') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'galleryGrid';
-      }
-  )[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryGrid)[];
   meta?: {
     title?: string | null;
     /**
@@ -464,6 +448,15 @@ export interface User {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
+  /**
+   * Personnalisation de la présentation du bloc.
+   */
+  blockSettings?: {
+    width?: ('standard' | 'large' | 'full') | null;
+    spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
+    spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
+    background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+  };
   richText?: {
     root: {
       type: string;
@@ -512,6 +505,15 @@ export interface CallToActionBlock {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
+  /**
+   * Personnalisation de la présentation du bloc.
+   */
+  blockSettings?: {
+    width?: ('standard' | 'large' | 'full') | null;
+    spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
+    spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
+    background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+  };
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -563,6 +565,10 @@ export interface ContentBlock {
  */
 export interface MediaBlock {
   media: number | Media;
+  mediaSettings?: {
+    border?: boolean | null;
+    background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -657,23 +663,22 @@ export interface Gallery {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (
-    | CallToActionBlock
-    | ContentBlock
-    | MediaBlock
-    | ArchiveBlock
-    | FormBlock
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | GalleryGrid)[];
+  /**
+   * Importez des photos depuis votre ordinateur ou sélectionnez des médias déjà présents.
+   */
+  images?: (number | Media)[] | null;
+  /**
+   * Organisez les images de la galerie en différentes séries. Une même image peut être utilisée dans plusieurs séries.
+   */
+  series?:
     | {
-        title?: string | null;
+        title: string;
         description?: string | null;
-        images: (number | Media)[];
-        columns?: ('2' | '3' | '4') | null;
-        aspectRatio?: ('square' | 'landscape' | 'portrait') | null;
+        images?: (number | Media)[] | null;
         id?: string | null;
-        blockName?: string | null;
-        blockType: 'galleryGrid';
-      }
-  )[];
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     /**
@@ -891,6 +896,29 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryGrid".
+ */
+export interface GalleryGrid {
+  /**
+   * Personnalisation de la présentation du bloc.
+   */
+  blockSettings?: {
+    width?: ('standard' | 'large' | 'full') | null;
+    spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
+    spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
+    background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+  };
+  title?: string | null;
+  description?: string | null;
+  images: (number | Media)[];
+  columns?: ('2' | '3' | '4') | null;
+  aspectRatio?: ('square' | 'landscape' | 'portrait') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'galleryGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1204,17 +1232,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        galleryGrid?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              images?: T;
-              columns?: T;
-              aspectRatio?: T;
-              id?: T;
-              blockName?: T;
-            };
+        galleryGrid?: T | GalleryGridSelect<T>;
       };
   meta?:
     | T
@@ -1235,6 +1253,14 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
+  blockSettings?:
+    | T
+    | {
+        width?: T;
+        spacingTop?: T;
+        spacingBottom?: T;
+        background?: T;
+      };
   richText?: T;
   links?:
     | T
@@ -1259,6 +1285,14 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  blockSettings?:
+    | T
+    | {
+        width?: T;
+        spacingTop?: T;
+        spacingBottom?: T;
+        background?: T;
+      };
   columns?:
     | T
     | {
@@ -1286,6 +1320,12 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  mediaSettings?:
+    | T
+    | {
+        border?: T;
+        background?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1311,6 +1351,27 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryGrid_select".
+ */
+export interface GalleryGridSelect<T extends boolean = true> {
+  blockSettings?:
+    | T
+    | {
+        width?: T;
+        spacingTop?: T;
+        spacingBottom?: T;
+        background?: T;
+      };
+  title?: T;
+  description?: T;
+  images?: T;
+  columns?: T;
+  aspectRatio?: T;
   id?: T;
   blockName?: T;
 }
@@ -1518,17 +1579,16 @@ export interface GalleriesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        galleryGrid?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              images?: T;
-              columns?: T;
-              aspectRatio?: T;
-              id?: T;
-              blockName?: T;
-            };
+        galleryGrid?: T | GalleryGridSelect<T>;
+      };
+  images?: T;
+  series?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        images?: T;
+        id?: T;
       };
   meta?:
     | T
