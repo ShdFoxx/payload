@@ -4,7 +4,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
-
+import { BlockWrapper } from '@/components/BlockWrapper'
 import { CollectionArchive } from '@/components/CollectionArchive'
 
 export const ArchiveBlock: React.FC<
@@ -12,15 +12,25 @@ export const ArchiveBlock: React.FC<
     id?: string
   }
 > = async (props) => {
-  const { id, categories, introContent, relationTo ,limit: limitFromProps, populateBy, selectedDocs, blockName } = props
-  const collection = relationTo ? relationTo: 'posts'
+  const {
+    id,
+    categories,
+    introContent,
+    relationTo,
+    limit: limitFromProps,
+    populateBy,
+    selectedDocs,
+    blockName,
+    blockSettings,
+  } = props
+  const collection = relationTo ? relationTo : 'posts'
   const limit = limitFromProps || 3
 
-  let posts: any[]  = []
+  let posts: any[] = []
 
   if (populateBy === 'collection') {
     const payload = await getPayload({ config: configPromise })
-    
+
     const flattenedCategories = categories?.map((category) => {
       if (typeof category === 'object') return category.id
       else return category
@@ -51,16 +61,14 @@ export const ArchiveBlock: React.FC<
       posts = filteredSelectedPosts
     }
   }
-  const idName = blockName || '';
-
   return (
-    <div  className="my-16" id={`block-${id} ` + idName}>
+    <BlockWrapper settings={blockSettings} id={blockName || `block-${id}`} className="my-16">
       {introContent && (
         <div className="container mb-16">
           <RichText className="ms-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
       )}
       <CollectionArchive relationTo={collection} posts={posts} />
-    </div>
+    </BlockWrapper>
   )
 }

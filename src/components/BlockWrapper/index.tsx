@@ -2,6 +2,7 @@ import React from 'react'
 import { cn } from '@/utilities/ui'
 
 export interface BlockSettings {
+  anchor?: string | null
   width?: 'standard' | 'large' | 'full' | null
   spacingTop?: 'none' | 'small' | 'medium' | 'large' | null
   spacingBottom?: 'none' | 'small' | 'medium' | 'large' | null
@@ -56,7 +57,7 @@ export const BlockWrapper: React.FC<BlockWrapperProps> = ({
 
   return (
     <section
-      id={id || undefined}
+      id={settings?.anchor || id || undefined}
       className={cn(
         'mx-auto w-full overflow-hidden rounded-2xl',
         widthClasses[width],

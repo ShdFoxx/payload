@@ -5,6 +5,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import { cache } from 'react'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -64,6 +65,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
       <RenderHero {...hero} />
+      <Breadcrumbs items={[{ label: 'Galeries', href: '/galleries' }, { label: page.title }]} />
       <GalleryViewer series={page.series} />
     </article>
   )

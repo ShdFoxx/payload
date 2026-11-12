@@ -452,11 +452,15 @@ export interface CallToActionBlock {
   /**
    * Personnalisation de la présentation du bloc.
    */
-  blockSettings?: {
+  blockSettings: {
     width?: ('standard' | 'large' | 'full') | null;
     spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
     spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
     background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+    /**
+     * Identifiant utilisé pour créer un lien direct vers cette section. Vous pouvez le personnaliser.
+     */
+    anchor: string;
   };
   richText?: {
     root: {
@@ -509,11 +513,15 @@ export interface ContentBlock {
   /**
    * Personnalisation de la présentation du bloc.
    */
-  blockSettings?: {
+  blockSettings: {
     width?: ('standard' | 'large' | 'full') | null;
     spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
     spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
     background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+    /**
+     * Identifiant utilisé pour créer un lien direct vers cette section. Vous pouvez le personnaliser.
+     */
+    anchor: string;
   };
   columns?:
     | {
@@ -570,6 +578,19 @@ export interface MediaBlock {
     border?: boolean | null;
     background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
   };
+  /**
+   * Personnalisation de la présentation du bloc.
+   */
+  blockSettings: {
+    width?: ('standard' | 'large' | 'full') | null;
+    spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
+    spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
+    background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+    /**
+     * Identifiant utilisé pour créer un lien direct vers cette section. Vous pouvez le personnaliser.
+     */
+    anchor: string;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -610,6 +631,19 @@ export interface ArchiveBlock {
           }
       )[]
     | null;
+  /**
+   * Personnalisation de la présentation du bloc.
+   */
+  blockSettings: {
+    width?: ('standard' | 'large' | 'full') | null;
+    spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
+    spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
+    background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+    /**
+     * Identifiant utilisé pour créer un lien direct vers cette section. Vous pouvez le personnaliser.
+     */
+    anchor: string;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
@@ -720,6 +754,19 @@ export interface FormBlock {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Personnalisation de la présentation du bloc.
+   */
+  blockSettings: {
+    width?: ('standard' | 'large' | 'full') | null;
+    spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
+    spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
+    background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+    /**
+     * Identifiant utilisé pour créer un lien direct vers cette section. Vous pouvez le personnaliser.
+     */
+    anchor: string;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'formBlock';
@@ -897,11 +944,15 @@ export interface GalleryGrid {
   /**
    * Personnalisation de la présentation du bloc.
    */
-  blockSettings?: {
+  blockSettings: {
     width?: ('standard' | 'large' | 'full') | null;
     spacingTop?: ('none' | 'small' | 'medium' | 'large') | null;
     spacingBottom?: ('none' | 'small' | 'medium' | 'large') | null;
     background?: ('default' | 'muted' | 'card' | 'primary' | 'accent') | null;
+    /**
+     * Identifiant utilisé pour créer un lien direct vers cette section. Vous pouvez le personnaliser.
+     */
+    anchor: string;
   };
   title?: string | null;
   description?: string | null;
@@ -1252,6 +1303,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
         spacingTop?: T;
         spacingBottom?: T;
         background?: T;
+        anchor?: T;
       };
   richText?: T;
   links?:
@@ -1284,6 +1336,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
         spacingTop?: T;
         spacingBottom?: T;
         background?: T;
+        anchor?: T;
       };
   columns?:
     | T
@@ -1318,6 +1371,15 @@ export interface MediaBlockSelect<T extends boolean = true> {
         border?: T;
         background?: T;
       };
+  blockSettings?:
+    | T
+    | {
+        width?: T;
+        spacingTop?: T;
+        spacingBottom?: T;
+        background?: T;
+        anchor?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1332,6 +1394,15 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   categories?: T;
   limit?: T;
   selectedDocs?: T;
+  blockSettings?:
+    | T
+    | {
+        width?: T;
+        spacingTop?: T;
+        spacingBottom?: T;
+        background?: T;
+        anchor?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1343,6 +1414,15 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  blockSettings?:
+    | T
+    | {
+        width?: T;
+        spacingTop?: T;
+        spacingBottom?: T;
+        background?: T;
+        anchor?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1358,6 +1438,7 @@ export interface GalleryGridSelect<T extends boolean = true> {
         spacingTop?: T;
         spacingBottom?: T;
         background?: T;
+        anchor?: T;
       };
   title?: T;
   description?: T;

@@ -1,5 +1,5 @@
 import type { Block } from 'payload'
-
+import { blockSettings } from '@/fields/blockSettings'
 import {
   FixedToolbarFeature,
   HeadingFeature,
@@ -41,7 +41,7 @@ export const FormBlock: Block = {
       }),
       label: 'Intro Content',
     },
-   
+    ...blockSettings,
   ],
   graphQL: {
     singularName: 'FormBlock',

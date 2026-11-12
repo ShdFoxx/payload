@@ -61,6 +61,18 @@ export const blockSettings: Field[] = [
           { label: 'Accent', value: 'accent' },
         ],
       },
+      {
+        name: 'anchor',
+        type: 'text',
+        label: 'Ancre de section',
+        required: true,
+        unique: false,
+        defaultValue: () => `section-${Math.random().toString(36).slice(2, 8)}`,
+        admin: {
+          description:
+            'Identifiant utilisé pour créer un lien direct vers cette section. Vous pouvez le personnaliser.',
+        },
+      },
     ],
   },
 ]

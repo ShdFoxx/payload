@@ -1,6 +1,6 @@
 import type { StaticImageData } from 'next/image'
 import React from 'react'
-
+import { BlockWrapper } from '@/components/BlockWrapper'
 import { cn } from '@/utilities/ui'
 import RichText from '@/components/RichText'
 
@@ -37,6 +37,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
     blockName,
     mediaSettings,
     enableGutter = true,
+    blockSettings,
   } = props
 
   const caption = media && typeof media === 'object' ? media.caption : null
@@ -45,8 +46,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
   const border = mediaSettings?.border ?? true
 
   return (
-    <section
-      id={blockName || undefined}
+    <BlockWrapper
+      settings={blockSettings}
+      id={blockName}
       className={cn(
         'w-full overflow-hidden rounded-2xl',
         {
@@ -83,6 +85,6 @@ export const MediaBlock: React.FC<Props> = (props) => {
           </div>
         )}
       </div>
-    </section>
+    </BlockWrapper>
   )
 }

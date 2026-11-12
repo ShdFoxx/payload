@@ -5,8 +5,8 @@ import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import React from 'react'
 import PageClient from './page.client'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -30,6 +30,7 @@ export default async function Page() {
   return (
     <div className="pt-24 pb-24">
       <PageClient />
+      <Breadcrumbs items={[{ label: 'Galeries' }]} />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
           <h1>Galleries</h1>
@@ -45,11 +46,15 @@ export default async function Page() {
         />
       </div>
 
-      <CollectionArchive relationTo='galleries' posts={galleries.docs} />
+      <CollectionArchive relationTo="galleries" posts={galleries.docs} />
 
       <div className="container">
         {galleries.totalPages > 1 && galleries.page && (
-          <Pagination collection='galleries' page={galleries.page} totalPages={galleries.totalPages} />
+          <Pagination
+            collection="galleries"
+            page={galleries.page}
+            totalPages={galleries.totalPages}
+          />
         )}
       </div>
     </div>

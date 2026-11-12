@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { blockSettings } from '@/fields/blockSettings'
 
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
@@ -38,5 +39,6 @@ export const MediaBlock: Block = {
         },
       ],
     },
+    ...blockSettings,
   ],
 }

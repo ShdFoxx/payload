@@ -1,6 +1,6 @@
 'use client'
 import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
-
+import { BlockWrapper } from '@/components/BlockWrapper'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -17,6 +17,13 @@ export type FormBlockType = {
   enableIntro: boolean
   form: FormType
   introContent?: DefaultTypedEditorState
+  blockSettings?: {
+    anchor?: string | null
+    width?: 'standard' | 'large' | 'full' | null
+    spacingTop?: 'none' | 'small' | 'medium' | 'large' | null
+    spacingBottom?: 'none' | 'small' | 'medium' | 'large' | null
+    background?: 'default' | 'muted' | 'card' | 'primary' | 'accent' | null
+  }
 }
 
 export const FormBlock: React.FC<
@@ -26,6 +33,7 @@ export const FormBlock: React.FC<
 > = (props) => {
   const {
     blockName,
+    blockSettings,
     enableIntro,
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
@@ -115,7 +123,7 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div id={blockName} className="container lg:max-w-[48rem]">
+    <BlockWrapper settings={blockSettings} id={blockName} className="container lg:max-w-[48rem]">
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
@@ -159,6 +167,6 @@ export const FormBlock: React.FC<
           )}
         </FormProvider>
       </div>
-    </div>
+    </BlockWrapper>
   )
 }

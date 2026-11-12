@@ -5,7 +5,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import { cache } from 'react'
-
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -67,6 +67,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <RenderHero {...hero} />
+      {page.slug !== 'home' && <Breadcrumbs items={[{ label: page.title }]} />}
       <RenderBlocks blocks={layout} />
     </article>
   )
