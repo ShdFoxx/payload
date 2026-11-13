@@ -51,6 +51,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
               },
             ],
           },
+
           {
             name: 'newTab',
             type: 'checkbox',
@@ -63,6 +64,15 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
             label: 'Open in new tab',
           },
         ],
+      },
+      {
+        name: 'debug',
+        type: 'text',
+        admin: {
+          components: {
+            Field: '@/components/LinkDebug#LinkDebug',
+          },
+        },
       },
     ],
   }
@@ -116,7 +126,17 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
   } else {
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
-
+  linkResult.fields.push({
+    name: 'anchor',
+    type: 'text',
+    admin: {
+      condition: (_, siblingData) => siblingData?.type === 'reference',
+      components: {
+        Field: '@/components/AnchorField#AnchorField',
+      },
+    },
+    label: 'Section anchor',
+  })
   if (appearances !== false) {
     let appearanceOptionsToUse = [appearanceOptions.default, appearanceOptions.outline]
 
