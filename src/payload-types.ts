@@ -962,9 +962,13 @@ export interface GalleryGrid {
      */
     anchor: string;
   };
+  source: 'manual' | 'gallery';
+  layout: 'grid' | 'masonry' | 'mosaic' | 'featured';
   title?: string | null;
   description?: string | null;
-  images: (number | Media)[];
+  maxImages: '3' | '4' | '6' | '8' | '12' | 'all';
+  images?: (number | Media)[] | null;
+  gallery?: (number | null) | Gallery;
   columns?: ('2' | '3' | '4') | null;
   aspectRatio?: ('square' | 'landscape' | 'portrait') | null;
   id?: string | null;
@@ -1454,9 +1458,13 @@ export interface GalleryGridSelect<T extends boolean = true> {
         background?: T;
         anchor?: T;
       };
+  source?: T;
+  layout?: T;
   title?: T;
   description?: T;
+  maxImages?: T;
   images?: T;
+  gallery?: T;
   columns?: T;
   aspectRatio?: T;
   id?: T;

@@ -1,3 +1,4 @@
+//src/collection/Galleries/index.ts
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
@@ -32,6 +33,7 @@ export const Galleries: CollectionConfig<'galleries'> = {
   defaultPopulate: {
     title: true,
     slug: true,
+    images: true,
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],

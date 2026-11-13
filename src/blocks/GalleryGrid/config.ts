@@ -15,6 +15,30 @@ export const GalleryGrid: Block = {
   fields: [
     ...blockSettings,
     {
+      name: 'source',
+      label: 'Source des images',
+      type: 'select',
+      defaultValue: 'manual',
+      required: true,
+      options: [
+        { label: 'Sélection manuelle', value: 'manual' },
+        { label: 'Galerie existante', value: 'gallery' },
+      ],
+    },
+    {
+      name: 'layout',
+      label: 'Présentation',
+      type: 'select',
+      defaultValue: 'grid',
+      options: [
+        { label: 'Grille', value: 'grid' },
+        { label: 'Masonry', value: 'masonry' },
+        { label: 'Mosaïque', value: 'mosaic' },
+        { label: 'Image principale', value: 'featured' },
+      ],
+      required: true,
+    },
+    {
       name: 'title',
       label: 'Titre',
       type: 'text',
@@ -25,7 +49,21 @@ export const GalleryGrid: Block = {
       label: 'Description',
       type: 'textarea',
     },
-
+    {
+      name: 'maxImages',
+      label: "Nombre maximum d'images affichées",
+      type: 'select',
+      defaultValue: '6',
+      required: true,
+      options: [
+        { label: '3 images', value: '3' },
+        { label: '4 images', value: '4' },
+        { label: '6 images', value: '6' },
+        { label: '8 images', value: '8' },
+        { label: '12 images', value: '12' },
+        { label: 'Toutes les images', value: 'all' },
+      ],
+    },
     {
       name: 'images',
       label: 'Images',
@@ -33,6 +71,19 @@ export const GalleryGrid: Block = {
       relationTo: 'media',
       hasMany: true,
       required: true,
+      admin: {
+        condition: (_, siblingData) => siblingData?.source === 'manual',
+      },
+    },
+    {
+      name: 'gallery',
+      label: 'Galerie',
+      type: 'relationship',
+      relationTo: 'galleries',
+      required: true,
+      admin: {
+        condition: (_, siblingData) => siblingData?.source === 'gallery',
+      },
     },
 
     {
@@ -40,6 +91,9 @@ export const GalleryGrid: Block = {
       label: 'Nombre de colonnes',
       type: 'select',
       defaultValue: '3',
+      admin: {
+        condition: (_, siblingData) => ['grid', 'masonry'].includes(siblingData?.layout),
+      },
       options: [
         {
           label: '2 colonnes',
@@ -61,6 +115,9 @@ export const GalleryGrid: Block = {
       label: 'Format des images',
       type: 'select',
       defaultValue: 'square',
+      admin: {
+        condition: (_, siblingData) => siblingData?.layout === 'grid',
+      },
       options: [
         {
           label: 'Carré',
