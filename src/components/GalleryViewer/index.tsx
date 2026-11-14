@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-
+import React, { useState } from 'react'
+import { Lightbox } from '@/components/Lightbox'
 import type { Gallery, Media } from '@/payload-types'
 import { ImageMedia } from '@/components/Media/ImageMedia'
 
@@ -37,25 +37,9 @@ export const GalleryViewer: React.FC<GalleryViewerProps> = ({ series }) => {
     )
   }
 
-  useEffect(() => {
-    if (activeImageIndex === null) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeViewer()
-      if (event.key === 'ArrowLeft') showPrevious()
-      if (event.key === 'ArrowRight') showNext()
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [activeImageIndex, galleryImages.length])
-
   if (gallerySeries.length === 0) {
     return null
   }
-
-  const activeImage = activeImageIndex !== null ? galleryImages[activeImageIndex] : null
 
   return (
     <>
@@ -119,59 +103,13 @@ export const GalleryViewer: React.FC<GalleryViewerProps> = ({ series }) => {
         })}
       </div>
 
-      {activeImage && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
-          onClick={closeViewer}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Visionneuse de photos"
-        >
-          <button
-            type="button"
-            onClick={closeViewer}
-            className="absolute right-5 top-5 z-10 text-3xl text-white hover:text-gray-300"
-            aria-label="Fermer"
-          >
-            ×
-          </button>
-
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              showPrevious()
-            }}
-            className="absolute left-4 z-10 rounded-full bg-black/50 px-4 py-3 text-2xl text-white hover:bg-black/80"
-            aria-label="Photo précédente"
-          >
-            ‹
-          </button>
-
-          <div
-            className="relative h-[80vh] w-[90vw] max-w-6xl"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <ImageMedia resource={activeImage} fill imgClassName="object-contain" />
-          </div>
-
-          <button
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              showNext()
-            }}
-            className="absolute right-4 z-10 rounded-full bg-black/50 px-4 py-3 text-2xl text-white hover:bg-black/80"
-            aria-label="Photo suivante"
-          >
-            ›
-          </button>
-
-          <div className="absolute bottom-5 text-sm text-white">
-            {activeImageIndex! + 1} / {galleryImages.length}
-          </div>
-        </div>
-      )}
+      <Lightbox
+        images={galleryImages}
+        activeImageIndex={activeImageIndex}
+        onClose={closeViewer}
+        onPrevious={showPrevious}
+        onNext={showNext}
+      />
     </>
   )
 }
